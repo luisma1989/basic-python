@@ -1,14 +1,13 @@
 import sys
 
-clients = 'luisma, ojete, '
+clients = ['luisma', 'ojete']
 
 
 def create_client(client_name):
     global clients
 
     if client_name not in clients:
-        clients += client_name
-        _addcomma()
+        clients.append(client_name)
     else:
         print('Client already exists in the client\'s list')
 
@@ -17,7 +16,8 @@ def update_client(client_name, updated_client_name):
     global clients
 
     if client_name in clients:
-        clients = clients.replace(client_name + ',', updated_client_name)
+        index = clients.index(client_name)
+        clients[index] = updated_client_name
     else:
         print('Client not exists in the client\'s list')
 
@@ -26,17 +26,13 @@ def delete_client(client_name):
     global clients
 
     if client_name in clients:
-        clients = clients.replace(client_name + ',', '')
+        clients.remove(client_name)
     else:
         print('Client not exists in the client\'s list')
 
 
 def search_client(client_name):
-    global clients
-
-    client_list = clients.split(',')
-
-    for client in client_list:
+    for client in clients:
         if client != client_name:
             continue
         else:
@@ -46,12 +42,8 @@ def search_client(client_name):
 def list_clients():
     global clients
 
-    print(clients)
-
-
-def _addcomma():
-    global clients
-    clients += ','
+    for idx, client in enumerate(clients):
+        print('{}: {}'.format(idx, client))
 
 
 def _print_welcome():
